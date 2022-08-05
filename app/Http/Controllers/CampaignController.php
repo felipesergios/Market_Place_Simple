@@ -14,8 +14,8 @@ class CampaignController extends Controller
     public function index()
     {
         //$data = Campaign::all();
-        $data = Campaign::with('group')->with('products')->get();
-        return ($data);
+        $campagins = Campaign::with('group')->with('products')->get();
+        return ($campagins);
     }
 
     /**
@@ -49,8 +49,8 @@ class CampaignController extends Controller
      */
     public function show($id)
     {
-        $data = Campaign::with('group')->with('products')->FindOrFail($id);
-        return($data);
+        $campaign = Campaign::with('group')->with('products')->FindOrFail($id);
+        return($campaign);
     }
 
     /**

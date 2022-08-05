@@ -13,8 +13,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $data = Product::all();
-        return ($data);
+        $products = Product::all();
+        return ($products);
     }
 
     /**
@@ -50,8 +50,8 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        $data = Product::FindOrFail($id);
-        return($data);
+        $product = Product::FindOrFail($id);
+        return($product);
     }
 
     /**
