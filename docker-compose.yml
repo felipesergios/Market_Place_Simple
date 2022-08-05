@@ -19,6 +19,7 @@ services:
           - db
         ports:
             - "8000:80"
+        command: ./run.sh    
         networks:
             - internalAcess
             - webAccess
