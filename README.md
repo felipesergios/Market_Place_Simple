@@ -7,58 +7,219 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-## About Laravel
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+# Market Place - Laravel 9 
+## Implantando o projeto 
+Comece realizando o clone desse repositório utilizando o comando :
+```shell
+git clone https://github.com/felipesergios/Market_Place_Simple.git
+```
+Agora prossiga executando o docker-compose que é responsável por subir os containers de aplicação de banco de dados (nesse projeto utilizamos o MariaDb)
+->Observação com o comando abaixo você conseguira ver os logs e saída dos container caso não queira vê-los utilize o parâmetro "-d"
+```shell
+docker-compose up
+# docker-compose up -d
+```
+Aguarde o docker subir os containers e faça o primeiro teste utilizando 
+```shell
+curl http://localhost:8000/api/produto
+```
+Ou pode acessar via browser usando a Url 
+http://localhost:8000/api/produto
+você deverá receber a seguinte resposta :
+```json
+{
+"id":"1",
+"product_name":"Meu primeiro produto",
+"product_price":"50.5",
+"product_campaing":"1"
+}
+```
+Após a validação inicial segue o uso da API 
+### Campanha 
+```
+GET http://localhost:8000/public/api/campanha
+# responsavel por trazer todas as campanhas cadastradas
+```
+```
+GET http://localhost:8000/public/api/campanha/{id}
+# responsavel por trazer a campanha referente ao id informado
+```
+```
+POST http://localhost:8000/public/api/campanha/
+# responsavel por cadastrar uma nova campanha (deverá ser informado o Json com os dados segue exemplo abaixo)
+```
+```json
+{
+"campaign_name":"nome da campanha"
+}
+```
+```
+PUT http://localhost:8000/public/api/campanha/{id}
+# responsavel por editar uma campanha (deverá ser informado o Json com os dados e o ID segue exemplo abaixo)
+```
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+```json
+{
+"campaign_name":"novo nome da campanha"
+}
+```
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+```
+DELETE http://localhost:8000/public/api/campanha/{id}
+# responsavel deletar uma campanha (deverá ser informado o ID)
+```
 
-## Learning Laravel
+### Cidade
+```
+GET http://localhost:8000/public/api/cidade
+# responsavel por trazer todas as cidades cadastradas
+```
+```
+GET http://localhost:8000/public/api/cidade/{id}
+# responsavel por trazer a cidade referente ao id informado
+```
+```
+POST http://localhost:8000/public/api/cidade/
+# responsavel por cadastrar uma nova cidade (deverá ser informado o Json com os dados segue exemplo abaixo)
+```
+```json
+{
+"city_name":"Natal",
+"city_simbol":"NAT",
+"city_state":"RN",
+"city_group_id":"1",
+}
+```
+```
+PUT http://localhost:8000/public/api/cidade/{id}
+# responsavel por editar uma cidade(deverá ser informado o Json com os dados e o ID segue exemplo abaixo)
+```
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+```json
+{
+"city_name":"novo nome da cidade"
+}
+```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+```
+DELETE http://localhost:8000/public/api/cidade/{id}
+# responsavel deletar uma cidade (deverá ser informado o ID)
+```
 
-## Laravel Sponsors
+### Desconto
+```
+GET http://localhost:8000/public/api/desconto
+# responsavel por trazer todas os descontos cadastrados
+```
+```
+GET http://localhost:8000/public/api/desconto/{id}
+# responsavel por trazer o desconto referente ao id informado
+```
+```
+POST http://localhost:8000/public/api/desconto/
+# responsavel por cadastrar uma novo desconto (deverá ser informado o Json com os dados segue exemplo abaixo)
+observação o campo "discount_campaing" necessita do id da campanha ao qual esse desconto fara parte
+```
+```json
+{
+"discount_size":"nome da campanha",
+"discount_campaing":"1"
+}
+```
+```
+PUT http://localhost:8000/public/api/desconto/{id}
+# responsavel por editar um desconto (deverá ser informado o Json com os dados e o ID segue exemplo abaixo)
+```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+```json
+{
+"discount_size":"60%"
+}
+```
 
-### Premium Partners
+```
+DELETE http://localhost:8000/public/api/desconto/{id}
+# responsavel deletar uma desconto (deverá ser informado o ID)
+```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+### Grupo
+```
+GET http://localhost:8000/public/api/grupo
+# responsavel por trazer todos os grupos cadastrados
+```
+```
+GET http://localhost:8000/public/api/grupo/{id}
+# responsavel por trazer o grupo referente ao id informado
+```
+```
+POST http://localhost:8000/public/api/grupo/
+# responsavel por cadastrar uma novo grupo (deverá ser informado o Json com os dados segue exemplo abaixo)
+observação o campo "group_campaing" necessita do id da campanha ao qual esse grupo fara parte
+```
+```json
+{
+"group_name":"nome do grupo",
+"group_campaing":"1"
+}
+```
+```
+PUT http://localhost:8000/public/api/grupo/{id}
+# responsavel por editar um grupo (deverá ser informado o Json com os dados e o ID segue exemplo abaixo)
+```
 
-## Contributing
+```json
+{
+"id":"1"
+"group_name":"60%"
+}
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+```
+DELETE http://localhost:8000/public/api/grupo/{id}
+# responsavel deletar uma grupo (deverá ser informado o ID)
+```
 
-## Code of Conduct
+### Produto
+```
+GET http://localhost:8000/public/api/produto
+# responsavel por trazer todos os produtos cadastrados
+```
+```
+GET http://localhost:8000/public/api/produto/{id}
+# responsavel por trazer o produto referente ao id informado
+```
+```
+POST http://localhost:8000/public/api/produto/
+# responsavel por cadastrar uma novo produto(deverá ser informado o Json com os dados segue exemplo abaixo)
+observação o campo "product_campaing" necessita do id da campanha ao qual esse produto fara parte
+```
+```json
+{
+"product_name":"nome do produto",
+"product_price":"50.5",
+"product_campaing":"1"
+}
+```
+```
+PUT http://localhost:8000/public/api/produto/{id}
+# responsavel por editar um produto(deverá ser informado o Json com os dados e o ID segue exemplo abaixo)
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+```json
+{
+"id":"1"
+"product_name":"novo nome do produto"
+}
+```
 
-## Security Vulnerabilities
+```
+DELETE http://localhost:8000/public/api/produto/{id}
+# responsavel deletar um produto (deverá ser informado o ID)
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
 
-## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+
+
